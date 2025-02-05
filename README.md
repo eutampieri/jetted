@@ -197,22 +197,21 @@ Generates into this TypeScript:
 /**
  * The user's account status
  */
-export enum UserStatus {
+export type UserStatus =
     /**
      * The user's account was terminated
      */
-	Disabled = "DISABLED",
+	| "DISABLED"
 
     /**
      * The user's email has not yet been verified
      */
-	Unverified = "UNVERIFIED",
+	| "UNVERIFIED"
 
     /**
      * The user's email has been verified
      */
-	Verified = "VERIFIED",
-}
+	| "VERIFIED"
 
 export interface User {
     /**

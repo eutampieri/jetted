@@ -142,7 +142,7 @@ impl jetted_core::target::Target for Target {
 
                 writeln!(out)?;
                 write!(out, "{}", description(&metadata, 0))?;
-                writeln!(out, "export enum {} {{", name)?;
+                writeln!(out, "export type {} =", name)?;
                 for (index, member) in members.iter().enumerate() {
                     let description = enum_variant_description(&metadata, 1, &member.json_value);
 
@@ -151,9 +151,8 @@ impl jetted_core::target::Target for Target {
                     }
 
                     write!(out, "{}", &description)?;
-                    writeln!(out, "  {} = {:?},", member.name, member.json_value)?;
+                    writeln!(out, "  | {:?}", member.json_value)?;
                 }
-                writeln!(out, "}}")?;
 
                 None
             }
