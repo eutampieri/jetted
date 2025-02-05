@@ -1,6 +1,6 @@
 [package]
 name = "jetted_target_typescript"
-version = "0.1.0"
+version = "0.2.0"
 authors = [
     "Isaac Harris-Holt <isaac@documatic.com>",
     "Ulysse Carion <ulysse@segment.com>",
