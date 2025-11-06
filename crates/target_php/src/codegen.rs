@@ -58,15 +58,17 @@ pub fn generate_serializer(
     nesting_level: u8,
     fields: &[Field],
 ) -> std::io::Result<()> {
-    nested_writeln!(
-        out,
-        nesting_level,
-        "public function serialize() {{"
-    )?;
+    nested_writeln!(out, nesting_level, "public function serialize() {{")?;
     nested_writeln!(out, nesting_level + 1, "$result = [];")?;
 
     for field in fields {
-        nested_writeln!(out, nesting_level + 1, "$result[\"{}\"] = $this->{};", field.json_name, field.name)?;
+        nested_writeln!(
+            out,
+            nesting_level + 1,
+            "$result[\"{}\"] = $this->{};",
+            field.json_name,
+            field.name
+        )?;
     }
     nested_writeln!(out, nesting_level + 1, "return $result;")?;
     nested_writeln!(out, nesting_level, "}}")?;
@@ -87,7 +89,13 @@ pub fn generate_deserializer(
     nested_writeln!(out, nesting_level + 1, "return new self(")?;
     for (i, field) in fields.into_iter().enumerate() {
         let separator = if i == fields.len() - 1 { "" } else { "," };
-        nested_writeln!(out, nesting_level + 2, "$data[\"{}\"]{}", field.json_name, separator)?;
+        nested_writeln!(
+            out,
+            nesting_level + 2,
+            "$data[\"{}\"]{}",
+            field.json_name,
+            separator
+        )?;
     }
     nested_writeln!(out, nesting_level + 1, ");")?;
     nested_writeln!(out, nesting_level, "}}")?;
