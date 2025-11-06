@@ -198,6 +198,7 @@ dependencies = [
  "jetted_target_csharp_system_text",
  "jetted_target_go",
  "jetted_target_java_jackson",
+ "jetted_target_php",
  "jetted_target_python",
  "jetted_target_ruby",
  "jetted_target_ruby_sig",

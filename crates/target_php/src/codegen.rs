@@ -101,3 +101,21 @@ pub fn generate_deserializer(
     nested_writeln!(out, nesting_level, "}}")?;
     Ok(())
 }
+
+pub fn generate_getters(
+    out: &mut dyn std::io::Write,
+    nesting_level: u8,
+    fields: &[Field],
+) -> std::io::Result<()> {
+    for field in fields {
+        nested_writeln!(
+            out,
+            nesting_level,
+            "public function get_{}() {{",
+            field.name
+        )?;
+        nested_writeln!(out, nesting_level + 1, "return $this->{};", field.name)?;
+        nested_writeln!(out, nesting_level, "}}")?;
+    }
+    Ok(())
+}

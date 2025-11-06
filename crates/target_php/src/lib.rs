@@ -6,10 +6,12 @@ const TYPE_INFLECTOR: inflect::CombiningInflector =
     inflect::CombiningInflector::new(inflect::Case::pascal_case());
 const FIELD_INFLECTOR: inflect::TailInflector =
     inflect::TailInflector::new(inflect::Case::snake_case());
-pub struct Target {}
+pub struct Target {
+    namespace: Option<String>,
+}
 impl Target {
-    pub fn new() -> Self {
-        Self {}
+    pub fn new(namespace: Option<String>) -> Self {
+        Self { namespace }
     }
 }
 
@@ -88,6 +90,9 @@ impl jetted_core::target::Target for Target {
             jetted_core::target::Item::Auxiliary { .. } => None,
             jetted_core::target::Item::Preamble => {
                 writeln!(out, "<?php")?;
+                if let Some(ns) = &self.namespace {
+                    writeln!(out, "namespace {};", ns)?;
+                }
                 None
             }
             jetted_core::target::Item::Postamble => None,
@@ -105,6 +110,7 @@ impl jetted_core::target::Target for Target {
                 codegen::generate_constructor(out, 1, &fields)?;
                 codegen::generate_serializer(out, 1, &fields)?;
                 codegen::generate_deserializer(out, 1, &fields)?;
+                codegen::generate_getters(out, 1, &fields)?;
 
                 writeln!(out, "}}")?;
                 None
@@ -148,12 +154,18 @@ impl jetted_core::target::Target for Target {
 #[cfg(test)]
 mod tests {
     mod std_tests {
-        jetted_test::std_test_cases!(&crate::Target::new());
+        jetted_test::std_test_cases!(&crate::Target::new(None));
     }
 
     mod optional_std_tests {
-        jetted_test::strict_std_test_case!(&crate::Target::new(), empty_and_nonascii_properties);
+        jetted_test::strict_std_test_case!(
+            &crate::Target::new(None),
+            empty_and_nonascii_properties
+        );
 
-        jetted_test::strict_std_test_case!(&crate::Target::new(), empty_and_nonascii_enum_values);
+        jetted_test::strict_std_test_case!(
+            &crate::Target::new(None),
+            empty_and_nonascii_enum_values
+        );
     }
 }

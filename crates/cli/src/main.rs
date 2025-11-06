@@ -155,6 +155,20 @@ fn main() -> Result<()> {
         log.finish("TypeScript", &codegen_info);
     }
 
+    if let Some(out_dir) = matches.value_of("php-out") {
+        log.start("PHP", out_dir);
+
+        let namespace = matches.value_of("php-namespace").unwrap().to_owned();
+
+        let target = jetted_target_php::Target::new(Some(namespace));
+
+        let codegen_info =
+            jetted_core::codegen(&target, root_name.clone(), &schema, &Path::new(out_dir))
+                .with_context(|| "Failed to generate PHP code")?;
+
+        log.finish("PHP", &codegen_info);
+    }
+
     log.flush();
     Ok(())
 }

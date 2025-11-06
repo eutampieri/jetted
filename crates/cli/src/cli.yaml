@@ -110,3 +110,17 @@ args:
       long: typescript-out
       takes_value: true
       value_name: dir
+
+  # PHP
+  - php-out:
+      help: Output directory for PHP code generation
+      long: php-out
+      takes_value: true
+      value_name: dir
+      requires:
+        - php-namespace
+  - php-namespace:
+      help: Namespace for PHP generated types
+      long: php-namespace
+      takes_value: true
+      value_name: namespace
