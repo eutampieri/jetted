@@ -251,6 +251,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "jetted_target_php"
+version = "0.1.0"
+dependencies = [
+ "jetted_core",
+ "jetted_test",
+ "regex",
+ "serde_json",
+]
+
+[[package]]
 name = "jetted_target_python"
 version = "0.1.0"
 dependencies = [

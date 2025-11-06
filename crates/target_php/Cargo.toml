@@ -1,0 +1,15 @@
+[package]
+name = "jetted_target_php"
+version = "0.1.0"
+authors = [
+    "Eugenio Tampieri",
+]
+edition = "2024"
+
+[dependencies]
+jetted_core = { path = "../core" }
+serde_json = "1.0"
+regex = "1"
+
+[dev-dependencies]
+jetted_test = { path = "../test" }
