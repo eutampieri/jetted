@@ -35,7 +35,7 @@ pub struct CombiningInflector {
 }
 
 impl CombiningInflector {
-    pub fn new(case: Case) -> Self {
+    pub const fn new(case: Case) -> Self {
         Self { case }
     }
 }
@@ -51,7 +51,7 @@ pub struct TailInflector {
 }
 
 impl TailInflector {
-    pub fn new(case: Case) -> Self {
+    pub const fn new(case: Case) -> Self {
         Self { case }
     }
 }
@@ -104,7 +104,7 @@ pub struct Case {
 }
 
 impl Case {
-    pub fn new(
+    pub const fn new(
         first_capitalization: CaseCapitalization,
         rest_capitalization: CaseCapitalization,
         delimiter: Option<char>,
@@ -118,7 +118,7 @@ impl Case {
         }
     }
 
-    pub fn camel_case() -> Self {
+    pub const fn camel_case() -> Self {
         Self::new(
             CaseCapitalization::None,
             CaseCapitalization::Initial,
@@ -127,7 +127,7 @@ impl Case {
         )
     }
 
-    pub fn pascal_case() -> Self {
+    pub const fn pascal_case() -> Self {
         Self::new(
             CaseCapitalization::Initial,
             CaseCapitalization::Initial,
@@ -136,7 +136,7 @@ impl Case {
         )
     }
 
-    pub fn pascal_case_with_initialisms(initialisms: BTreeSet<String>) -> Self {
+    pub const fn pascal_case_with_initialisms(initialisms: BTreeSet<String>) -> Self {
         Self::new(
             CaseCapitalization::Initial,
             CaseCapitalization::Initial,
@@ -145,7 +145,7 @@ impl Case {
         )
     }
 
-    pub fn snake_case() -> Self {
+    pub const fn snake_case() -> Self {
         Self::new(
             CaseCapitalization::None,
             CaseCapitalization::None,
@@ -154,7 +154,7 @@ impl Case {
         )
     }
 
-    pub fn screaming_snake_case() -> Self {
+    pub const fn screaming_snake_case() -> Self {
         Self::new(
             CaseCapitalization::All,
             CaseCapitalization::All,
